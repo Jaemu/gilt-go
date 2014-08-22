@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 )
 
 var alice = Person{"Alice", Female}
@@ -28,11 +27,15 @@ type Person struct {
 	Sex  SexT
 }
 
+func (p Person) Greet(other Person){
+	fmt.Printf("Hey, %s! \n", other.Name)
+}
+
 func main() {
 	//shortand for type inference
 	//longhand for type declaration
 	//% gives a struct,
 	//v is name of fields
-	fmt.Printf("%+v \n", alice)
+	alice.Greet(bob)
 
 }
