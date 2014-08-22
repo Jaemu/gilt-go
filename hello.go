@@ -4,10 +4,12 @@ import (
 	"fmt"
 )
 
-var alice = Person{"Alice", Female}
+var alice = &Person{"Alice", Female}
 var bob = Person{"Bob", Unspecified}
 
 type SexT int
+
+var eve *Person
 
 //iota!
 //get incremented each time it's used
@@ -27,8 +29,13 @@ type Person struct {
 	Sex  SexT
 }
 
-func (p Person) Greet(other Person){
-	fmt.Printf("Hey, %s! \n", other.Name)
+//Function will automatically try to find function
+//even if called on pointer to Person
+//Can also define function on a pointer
+func (p *Person) Greet(other Person) string {
+	p.Name = "Carol"
+	return fmt.Sprintf("Hey, %s! it's %s! \n", other.Name, p.Name)
+
 }
 
 func main() {
@@ -36,6 +43,6 @@ func main() {
 	//longhand for type declaration
 	//% gives a struct,
 	//v is name of fields
-	alice.Greet(bob)
-
+	fmt.Printf(alice.Greet(bob))
+	fmt.Printf("Name: %s\n", alice.Name)
 }
